@@ -30,6 +30,6 @@ public class ReviewController {
 
     @GetMapping("{imdbId}")
     public ResponseEntity<List<Review>> getReviews(@PathVariable String imdbId) {
-        return new ResponseEntity<>(movieService.getReviewsByImdbId(imdbId), HttpStatus.FOUND);
+        return ResponseEntity.ok(movieService.getReviewsByImdbId(imdbId));
     }
 }
