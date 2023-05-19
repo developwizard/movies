@@ -17,13 +17,13 @@ import java.util.Map;
 public class ReviewController {
     private final ReviewService reviewService;
     private final MovieService movieService;
-    private static final String IMDB_ID = "imdbId";
-    private static final String REVIEW_BODY = "reviewBody";
+    private static final String ID = "id";
+    private static final String BODY = "body";
 
     @PostMapping
     public ResponseEntity<Review> addReview(@RequestBody Map<String, String> payload) {
         return new ResponseEntity<>(
-                reviewService.createReview(payload.get(REVIEW_BODY), payload.get(IMDB_ID)),
+                reviewService.createReview(payload.get(BODY), payload.get(ID)),
                 HttpStatus.CREATED
         );
     }
