@@ -1,15 +1,14 @@
 package com.dewiz.movies.controller;
 
 import com.dewiz.movies.entity.Review;
+import com.dewiz.movies.service.MovieService;
 import com.dewiz.movies.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,6 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;
+    private final MovieService movieService;
     private static final String IMDB_ID = "imdbId";
     private static final String REVIEW_BODY = "reviewBody";
 
@@ -26,5 +26,10 @@ public class ReviewController {
                 reviewService.createReview(payload.get(REVIEW_BODY), payload.get(IMDB_ID)),
                 HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("{imdbId}")
+    public ResponseEntity<List<Review>> getReviews(@PathVariable String imdbId) {
+        return new ResponseEntity<>(movieService.getReviewsByImdbId(imdbId), HttpStatus.FOUND);
     }
 }

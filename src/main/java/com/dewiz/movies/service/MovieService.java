@@ -1,6 +1,7 @@
 package com.dewiz.movies.service;
 
 import com.dewiz.movies.entity.Movie;
+import com.dewiz.movies.entity.Review;
 import com.dewiz.movies.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,9 @@ public class MovieService {
 
     public Optional<Movie> getMovieByImdbId(String id) {
         return movieRepository.findByImdbId(id);
+    }
+
+    public List<Review> getReviewsByImdbId(String imdbId) {
+        return movieRepository.findByImdbId(imdbId).orElseThrow().getReviewIds();
     }
 }
